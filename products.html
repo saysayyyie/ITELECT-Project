@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Products</title>
+
+  <style>
+
+    body {
+
+      font-family: Arial, sans-serif;
+
+      margin: 20px;
+
+      background: #fafafa;
+
+    }
+
+    h2 {
+
+      margin-top: 40px;
+
+      color: #333;
+
+      border-bottom: 2px solid teal;
+
+      padding-bottom: 5px;
+
+    }
+
+    .category {
+
+      margin-bottom: 40px;
+
+    }
+
+    .products {
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 15px;
+
+    }
+
+    .product {
+
+      background: white;
+
+      border-radius: 8px;
+
+      box-shadow: 0 0 6px rgba(0,0,0,0.1);
+
+      width: 180px;
+
+      padding: 10px;
+
+      text-align: center;
+
+    }
+
+    .product img {
+
+      max-width: 100%;
+
+      height: 120px;
+
+      object-fit: contain;
+
+      margin-bottom: 10px;
+
+    }
+
+    .product-name {
+
+      font-weight: bold;
+
+      margin-bottom: 5px;
+
+    }
+
+    .price {
+
+      color: teal;
+
+      margin-bottom: 10px;
+
+    }
+
+    button.add-to-cart {
+
+      padding: 7px 12px;
+
+      background: teal;
+
+      color: white;
+
+      border: none;
+
+      border-radius: 5px;
+
+      cursor: pointer;
+
+    }
+
+    button.add-to-cart:hover {
+
+      background: #005050;
+
+    }
+
+    /* Checkout button fixed bottom right */
+
+    #checkout-btn {
+
+      position: fixed;
+
+      bottom: 20px;
+
+      right: 20px;
+
+      padding: 15px 25px;
+
+      background: #007b7b;
+
+      color: white;
+
+      border: none;
+
+      border-radius: 50px;
+
+      font-size: 18px;
+
+      cursor: pointer;
+
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+
+      z-index: 100;
+
+    }
+
+    #checkout-btn:hover {
+      background: #004f4f;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+
+  <h1>Our Products</h1>
+
+
+  <div class="category" id="shoes-category">
+
+    <h2>Shoes</h2>
+
+    <div class="products">
+      <div class="product" data-name="Running Shoes" data-price="1500">
+        <img src="https://via.placeholder.com/150x120?text=Shoes+1" alt="Running Shoes" />
+        <div class="product-name">Running Shoes</div>
+        <div class="price">₱1,500</div>
+        <button class="add-to-cart">Add to Cart</button>
+
+      </div>
+      <div class="product" data-name="Leather Sneakers" data-price="2000">
+        <img src="https://via.placeholder.com/150x120?text=Shoes+2" alt="Leather Sneakers" />
+        <div class="product-name">Leather Sneakers</div>
+        <div class="price">₱2,000</div>
+        <button class="add-to-cart">Add to Cart</button>
+
+      </div>
+
+      <div class="product" data-name="Canvas Shoes" data-price="1200">
+        <img src="https://via.placeholder.com/150x120?text=Shoes+3" alt="Canvas Shoes" />
+        <div class="product-name">Canvas Shoes</div>
+        <div class="price">₱1,200</div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+
+      <div class="product" data-name="High-top Sneakers" data-price="1800">
+        <img src="https://via.placeholder.com/150x120?text=Shoes+4" alt="High-top Sneakers" />
+        <div class="product-name">High-top Sneakers</div>
+        <div class="price">₱1,800</div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="product" data-name="Slip-on Shoes" data-price="1400">
+        <img src="https://via.placeholder.com/150x120?text=Shoes+5" alt="Slip-on Shoes" />
+        <div class="product-name">Slip-on Shoes</div>
+        <div class="price">₱1,400</div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="category" id="perfume-category">
+    <h2>Perfume</h2>
+    <div class="products">
+
+      <div class="product" data-name="Floral Scent" data-price="900">
+        <img src="https://via.placeholder.com/150x120?text=Perfume+1" alt="Floral Scent" />
+        <div class="product-name">Floral Scent</div>
+        <div class="price">₱900</div>
+        <button class="add-to-cart">Add to Cart</button>
+
+      </div>
+
+      <div class="product" data-name="Ocean Breeze" data-price="1100">
+        <img src="https://via.placeholder.com/150x120?text=Perfume+2" alt="Ocean Breeze" />
+        <div class="product-name">Ocean Breeze</div>
+        <div class="price">₱1,100</div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+
+      <div class="product" data-name="Woody Aroma" data-price="1000">
+        <img src="https://via.placeholder.com/150x120?text=Perfume+3" alt="Woody Aroma" />
+        <div class="product-name">Woody Aroma</div>
+        <div class="price">₱1,000</div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+
+      <div class="product" data-name="Citrus Blast" data-price="950">
+
+        <img src="https://via.placeholder.com/150x120?text=Perfume+4" alt="Citrus Blast" />
+
+        <div class="product-name">Citrus Blast</div>
+        <div class="price">₱950</div>
+        <button class="add-to-cart">Add to Cart</button>
+
+      </div>
+
+      <div class="product" data-name="Musk Essence" data-price="1050">
+
+        <img src="https://via.placeholder.com/150x120?text=Perfume+5" alt="Musk Essence" />
+
+        <div class="product-name">Musk Essence</div>
+
+        <div class="price">₱1,050</div>
+
+        <button class="add-to-cart">Add to Cart</button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- T-Shirt -->
+
+  <div class="category" id="tshirt-category">
+
+    <h2>T-Shirt</h2>
+
+    <div class="products">
+
+      <div class="product" data-name="Basic White Tee" data-price="350">
+
+        <img src="https://via.placeholder.com/150x120?text=T-Shirt+1" alt="Basic White Tee" />
+
+        <div class="product-name">Basic White Tee</div>
+
+        <div class="price">₱350</div>
+
+        <button class="add-to-cart">Add to Cart</button>
+
+      </div>
+
+      <div class="product" data-name="Graphic Tee" data-price="450">
+
+        <img src="https://via.placeholder.com/150x120?text=T-Shirt+2" alt="Graphic Tee" />
+
+        <div class="product-name">Graphic Tee</div>
+
+        <div class="price">₱450</div>
+
+        <button class="add-to-cart">Add to Cart</button>
+
+      </div>
+
+      <div class="product" data-name="Striped Tee" data-price="400">
+
+        <img src="https://via.placeholder.com/150x120?text=T-Shirt+3" alt="Striped Tee" />
+
+        <div class="product-name">Striped Tee</div>
+
+        <div class="price">₱400</div>
+
+        <button class="add-to-cart">Add to Cart</button>
+
+      </div>
+
+      <div class="product" data-name="Long Sleeve" data-price="500">
+
+        <img src="https://via.placeholder.com/150x120?text=T-Shirt+4" alt="Long Sleeve" />
+
+        <div class="product-name">Long Sleeve</div>
+
+        <div class="price">₱500</div>
+
+        <button class="add-to-cart">Add to Cart</button>
+
+      </div>
+
+      <div class="product" data-name="V-Neck Tee" data-price="420">
+        <img src="https://via.placeholder.com/150x120?text=T-Shirt+5" alt="V-Neck Tee" />
+        <div class="product-name">V-Neck Tee</div>
+        <div class="price">₱420</div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Shorts -->
+
+  <div class="category" id="shorts-category">
+    <h2>Shorts</h2>
+    <div class="products">
+      <div class="product" data-name="Denim Shorts" data-price="650">
+        <img src="https://via.placeholder.com/150x120?text=Shorts+1" alt="Denim Shorts" />
+        <div class="product-name">Denim Shorts</div>
+        <div class="price">₱650</div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+
+      <div class="product" data-name="Cargo Shorts" data-price="700">
+        <img src="https://via.placeholder.com/150x120?text=Shorts+2" alt="Cargo Shorts" />
+        <div class="product-name">Cargo Shorts</div>
+        <div class="price">₱700</div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+
+      <div class="product" data-name="Chino Shorts" data-price="720">
+        <img src="https://via.placeholder.com/150x120?text=Shorts+3" alt="Chino Shorts" />
+        <div class="product-name">Chino Shorts</div>
+        <div class="price">₱720</div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+
+      <div class="product" data-name="Athletic Shorts" data-price="600">
+        <img src="https://via.placeholder.com/150x120?text=Shorts+4" alt="Athletic Shorts" />
+        <div class="product-name">Athletic Shorts</div>
+        <div class="price">₱600</div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+
+      <div class="product" data-name="Linen Shorts" data-price="680">
+        <img src="https://via.placeholder.com/150x120?text=Shorts+5" alt="Linen Shorts" />
+        <div class="product-name">Linen Shorts</div>
+        <div class="price">₱680</div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="category" id="glasses-category">
+    <h2>Glasses</h2>
+    <div class="products">
+      <div class="product" data-name="Aviator Glasses" data-price="1200">
+        <img src="https://via.placeholder.com/150x120?text=Glasses+1" alt="Aviator Glasses" />
+        <div class="product-name">Aviator Glasses</div>
+        <div class="price">₱1,200</div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+
+      <div class="product" data-name="Wayfarer Glasses" data-price="1300">
+
+        <img src="https://via.placeholder.com/150x120?text=Glasses+2" alt="Wayfarer Glasses" />
+        <div class="product-name">Wayfarer Glasses</div>
+        <div class="price">₱1,300</div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="product" data-name="Round Glasses" data-price="1100">
+        <img src="https://via.placeholder.com/150x120?text=Glasses+3" alt="Round Glasses" />
+        <div class="product-name">Round Glasses</div>
+        <div class="price">₱1,100</div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="product" data-name="Square Glasses" data-price="1250">
+        <img src="https://via.placeholder.com/150x120?text=Glasses+4" alt="Square Glasses" />
+        <div class="product-name">Square Glasses</div>
+        <div class="price">₱1,250</div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="product" data-name="Cat Eye Glasses" data-price="1350">
+        <img src="https://via.placeholder.com/150x120?text=Glasses+5" alt="Cat Eye Glasses" />
+        <div class="product-name">Cat Eye Glasses</div>
+        <div class="price">₱1,350</div>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+  <button id="checkout-btn">Checkout</button>
+  <script>
+
+
+    const cart = [];
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+      button.addEventListener('click', e => {
+        const productDiv = e.target.closest('.product');
+        const name = productDiv.dataset.name;
+        const price = parseInt(productDiv.dataset.price);
+        const existing = cart.find(item => item.name === name);
+
+        if (existing) {
+          existing.qty++;
+        } else {
+          cart.push({name, price, qty:1});
+        }
+
+        
+
+        alert(`${name} added to cart.`);
+
+      });
+
+    });
+
+
+    // Checkout button to open checkout modal (later to be implemented)
+
+    document.getElementById('checkout-btn').addEventListener('click', () )=> {
+    }

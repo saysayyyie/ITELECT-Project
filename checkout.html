@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Checkout</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fefefe;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      color: teal;
+      margin-bottom: 20px;
+    }
+
+
+    .modal-backdrop {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+  
+    .modal {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 10px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    }
+
+    .modal h2 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 15px;
+    }
+    th, td {
+      padding: 8px;
+      border-bottom: 1px solid #ccc;
+      text-align: left;
+    }
+    th {
+      background: #eee;
+    }
+
+    .total-row td {
+      font-weight: bold;
+      color: teal;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: teal;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-right: 10px;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #004f4f;
+    }
+    button.cancel {
+      background: #aaa;
+    }
+    button.cancel:hover {
+      background: #777;
+    }
+
+ 
+    #empty-msg {
+      font-style: italic;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Checkout</h1>
+
+  <button id="open-modal-btn">Show Cart Summary</button>
+
+  <div class="modal-backdrop" id="modal-backdrop">
+    <div class="modal">
+      <h2>Your Cart</h2>
+      <div id="cart-contents">
+      
+      </div>
+      <button id="confirm-btn">Confirm Order</button>
+      <button class="cancel" id="cancel-btn">Cancel</button>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById('modal-backdrop');
+    const cartContents = document.getElementById('cart-contents');
+
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function renderCart() {
+      if (cart.length === 0) {
+        cartContents.innerHTML = '<p id="empty-msg">Your cart is empty.</p>';
+        document.getElementById('confirm-btn').style.display = 'none';
+        return;
+      }
+
+      document.getElementById('confirm-btn').style.display = 'inline-block';
+
+      let html = `<table>
+        <thead>
+          <tr>
+            <th>Product</th><th>Qty</th><th>Price</th><th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>`;
+
+      let total = 0;
+      cart.forEach(item => {
+        const subtotal = item.price * item.qty;
+        total += subtotal;
+        html += `<tr>
+          <td>${item.name}</td>
+          <td>${item.qty}</td>
+          <td>₱${item.price.toFixed(2)}</td>
+          <td>₱${subtotal.toFixed(2)}</td>
+        </tr>`;
+      });
+
+      html += `<tr class="total-row">
+        <td colspan="3">Total</td>
+        <td>₱${total.toFixed(2)}</td>
+      </tr>`;
+
+      html += '</tbody></table>';
+      cartContents.innerHTML = html;
+    }
+
+  
+    document.getElementById('open-modal-btn').addEventListener('click', () => {
+      renderCart();
+      modal.style.display = 'flex';
+    });
+
+    
+    document.getElementById('cancel-btn').addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    
+    document.getElementById('confirm-btn').addEventListener('click', () => {
+      alert("Thank you for your purchase!");
+      localStorage.removeItem('cart'); 
+      modal.style.display = 'none';
+      window.location.href = 'products.html'; 
+    });
+
+    
+    window.addEventListener('click', e => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+
+  </script>
+</body>
+</html>
