@@ -2,180 +2,250 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Checkout</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #fefefe;
-      margin: 0;
-      padding: 20px;
-    }
-
-    h1 {
-      color: teal;
-      margin-bottom: 20px;
-    }
-
-
-    .modal-backdrop {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.5);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-
-  
-    .modal {
-      background: white;
-      padding: 20px 30px;
-      border-radius: 10px;
-      max-width: 500px;
-      width: 90%;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
-    }
-
-    .modal h2 {
-      margin-top: 0;
+      font-family: sans-serif;
+      background: #f4f4f4;
+      padding: 30px 20px;
       color: #333;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    #cartItems {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
       margin-bottom: 15px;
-    }
-    th, td {
-      padding: 8px;
-      border-bottom: 1px solid #ccc;
-      text-align: left;
-    }
-    th {
-      background: #eee;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
     }
 
-    .total-row td {
-      font-weight: bold;
-      color: teal;
-    }
-
-    button {
-      padding: 10px 20px;
-      background: teal;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
+    .item img {
+      width: 50px;
+      height: 50px;
       margin-right: 10px;
+      border-radius: 4px;
+      object-fit: cover;
+    }
+
+    .item label {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .item input {
+      margin-right: 10px;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .button-group button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
       font-size: 16px;
     }
-    button:hover {
-      background: #004f4f;
-    }
-    button.cancel {
-      background: #aaa;
-    }
-    button.cancel:hover {
-      background: #777;
+
+    .gray { background: #7f8c8d; color: white; }
+    .green { background: #27ae60; color: white; }
+    .blue { background: #2980b9; color: white; }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
     }
 
- 
-    #empty-msg {
-      font-style: italic;
-      color: #555;
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .modal-content img {
+      width: 70px;
+      margin-bottom: 15px;
+    }
+
+    .modal-content ul {
+      list-style: none;
+      padding: 0;
+      max-height: 300px;
+      overflow-y: auto;
+      text-align: left;
+    }
+
+    .modal-content li {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .modal-content li img {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 5px;
     }
   </style>
 </head>
 <body>
 
-  <h1>Checkout</h1>
+  <h1>Thank you for choosing Villa!</h1>
 
-  <button id="open-modal-btn">Show Cart Summary</button>
+  <div id="cartItems"></div>
 
-  <div class="modal-backdrop" id="modal-backdrop">
-    <div class="modal">
-      <h2>Your Cart</h2>
-      <div id="cart-contents">
-      
-      </div>
-      <button id="confirm-btn">Confirm Order</button>
-      <button class="cancel" id="cancel-btn">Cancel</button>
+  <div class="button-group">
+    <button class="gray" onclick="goHome()">Home</button>
+    <button class="green" onclick="checkout()">Checkout Selected</button>
+    <button class="blue" onclick="showHistory()">Order History</button>
+  </div>
+
+  <!-- Thank You Modal -->
+  <div class="modal" id="thankYouModal">
+    <div class="modal-content">
+      <img src="check.png" alt="check">
+      <h3>Thank you!</h3>
+      <p>Your order was successful.</p>
+      <button onclick="goToHistory()">OK</button>
+    </div>
+  </div>
+
+  <!-- Order History Modal -->
+  <div class="modal" id="historyModal">
+    <div class="modal-content">
+      <h3>Order History</h3>
+      <ul id="orderHistoryList"></ul>
+      <button onclick="closeHistory()">Close</button>
     </div>
   </div>
 
   <script>
-    const modal = document.getElementById('modal-backdrop');
-    const cartContents = document.getElementById('cart-contents');
-
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cartItemsDiv = document.getElementById("cartItems");
 
     function renderCart() {
+      cartItemsDiv.innerHTML = "";
       if (cart.length === 0) {
-        cartContents.innerHTML = '<p id="empty-msg">Your cart is empty.</p>';
-        document.getElementById('confirm-btn').style.display = 'none';
+        cartItemsDiv.innerHTML = "<p>No items in cart.</p>";
         return;
       }
 
-      document.getElementById('confirm-btn').style.display = 'inline-block';
-
-      let html = `<table>
-        <thead>
-          <tr>
-            <th>Product</th><th>Qty</th><th>Price</th><th>Subtotal</th>
-          </tr>
-        </thead>
-        <tbody>`;
-
-      let total = 0;
-      cart.forEach(item => {
-        const subtotal = item.price * item.qty;
-        total += subtotal;
-        html += `<tr>
-          <td>${item.name}</td>
-          <td>${item.qty}</td>
-          <td>₱${item.price.toFixed(2)}</td>
-          <td>₱${subtotal.toFixed(2)}</td>
-        </tr>`;
+      cart.forEach((item, index) => {
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `
+          <input type="checkbox" id="item-${index}">
+          <label for="item-${index}">
+            <img src="${item.image || 'images/placeholder.jpg'}" alt="${item.name}">
+            ${item.name} - ₱${item.price}
+          </label>
+        `;
+        cartItemsDiv.appendChild(div);
       });
-
-      html += `<tr class="total-row">
-        <td colspan="3">Total</td>
-        <td>₱${total.toFixed(2)}</td>
-      </tr>`;
-
-      html += '</tbody></table>';
-      cartContents.innerHTML = html;
     }
 
-  
-    document.getElementById('open-modal-btn').addEventListener('click', () => {
-      renderCart();
-      modal.style.display = 'flex';
-    });
+    function checkout() {
+      const selected = [];
+      const remaining = [];
 
-    
-    document.getElementById('cancel-btn').addEventListener('click', () => {
-      modal.style.display = 'none';
-    });
+      cart.forEach((item, index) => {
+        const checked = document.getElementById(`item-${index}`).checked;
+        if (checked) selected.push(item);
+        else remaining.push(item);
+      });
 
-    
-    document.getElementById('confirm-btn').addEventListener('click', () => {
-      alert("Thank you for your purchase!");
-      localStorage.removeItem('cart'); 
-      modal.style.display = 'none';
-      window.location.href = 'products.html'; 
-    });
-
-    
-    window.addEventListener('click', e => {
-      if (e.target === modal) {
-        modal.style.display = 'none';
+      if (selected.length === 0) {
+        alert("Select at least one item.");
+        return;
       }
-    });
 
+      const history = JSON.parse(localStorage.getItem("orderHistory")) || [];
+      history.push({
+        date: new Date().toLocaleString(),
+        items: selected
+      });
+      localStorage.setItem("orderHistory", JSON.stringify(history));
+      localStorage.setItem("cart", JSON.stringify(remaining));
+      cart = remaining;
+      renderCart();
+      document.getElementById("thankYouModal").style.display = "flex";
+    }
+
+    function goToHistory() {
+      document.getElementById("thankYouModal").style.display = "none";
+      showHistory();
+    }
+
+    function showHistory() {
+      const modal = document.getElementById("historyModal");
+      const list = document.getElementById("orderHistoryList");
+      const history = JSON.parse(localStorage.getItem("orderHistory")) || [];
+
+      list.innerHTML = "";
+      if (history.length === 0) {
+        list.innerHTML = "<li>No orders found.</li>";
+        modal.style.display = "flex";
+        return;
+      }
+
+      history.reverse().forEach(order => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <div><strong>${order.date}</strong></div>
+          ${order.items.map(i => `
+            <div style="display:flex; align-items:center; margin-top:5px;">
+              <img src="${i.image || 'images/placeholder.jpg'}" alt="${i.name}">
+              <span>${i.name} (₱${i.price})</span>
+            </div>
+          `).join("")}
+        `;
+        list.appendChild(li);
+      });
+
+      modal.style.display = "flex";
+    }
+
+    function closeHistory() {
+      document.getElementById("historyModal").style.display = "none";
+    }
+
+    function goHome() {
+      window.location.href = "products.html";
+    }
+
+    renderCart();
   </script>
+
 </body>
 </html>
