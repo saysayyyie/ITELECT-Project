@@ -6,16 +6,17 @@
   <title>Products</title>
   <style>
     body {
+      height: 150vh;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       padding: 40px;
-      background: url(prod.jpg);
+      background: url(prod.jpg)no-repeat  center center/cover;;
       margin: 0;
     }
 
     h1 {
       text-align: center;
       margin-bottom: 40px;
-      color: #e6e7e9;
+      color: #2c3e50;
     }
 
     .products {
@@ -27,7 +28,7 @@
     }
 
     .product {
-      background: #d8a3a36b;
+      background: #ffffff6b;
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       padding: 20px;
@@ -79,10 +80,7 @@
       width: fit-content;
       margin: 40px auto 0;
       background: #27ae60;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+      padding: 12px 24px;
       font-size: 16px;
     }
 
@@ -106,92 +104,92 @@
       <img src="nikeshoes.jpg" alt="Nike">
       <h2>Nike Shoes</h2>
       <p>₱100</p>
-      <button onclick="addToCart('Nike', 100)">Add to Cart</button>
+      <button onclick="addToCart('Nike', 100, 'nikeshoes.jpg')">Add to Cart</button>
     </div>
 
     <div class="product">
       <img src="whiteNikeshoes.jpg" alt="White">
       <h2>White Nike Shoes</h2>
       <p>₱200</p>
-      <button onclick="addToCart('White', 200)">Add to Cart</button>
+      <button onclick="addToCart('White', 200, 'whiteNikeshoes.jpg')">Add to Cart</button>
     </div>
 
     <div class="product">
       <img src="airjordan_digitalpink.jpg" alt="Jordan">
       <h2>Air Jordan </h2>
       <p>₱150</p>
-      <button onclick="addToCart('Product 3', 150)">Add to Cart</button>
+      <button onclick="addToCart('Product 3', 150, 'airjordan_digitalpink.jpg')">Add to Cart</button>
     </div>
 
     <div class="product">
       <img src="c1.jpg" alt="Gray Cap">
       <h2>Gray Cap</h2>
       <p>₱100</p>
-      <button onclick="addToCart('Gray Cap', 100)">Add to Cart</button>
+      <button onclick="addToCart('Gray Cap', 100, 'c1.jpg')">Add to Cart</button>
     </div>
 
     <div class="product">
       <img src="c2.jpg" alt="Brown Cap">
       <h2>Brown</h2>
       <p>₱100</p>
-      <button onclick="addToCart('Brown Cap', 100)">Add to Cart</button>
+      <button onclick="addToCart('Brown Cap', 100, 'c2.jpg')">Add to Cart</button>
     </div>
 
     <div class="product">
-      <img src="c3.jpg" alt="Product 1">
+      <img src="c3.jpg" alt="Blacky">
       <h2>Blacky</h2>
       <p>₱100</p>
-      <button onclick="addToCart('Product 1', 100)">Add to Cart</button>
+      <button onclick="addToCart('Blacky', 100 , 'c3.jpg')">Add to Cart</button>
     </div>
 
     <div class="product">
-      <img src="p1.jpg" alt="Product 1">
+      <img src="p1.jpg" alt="Channel Perfume">
       <h2>Blue Channel Perfume</h2>
       <p>₱100</p>
-      <button onclick="addToCart('Product 1', 100)">Add to Cart</button>
+      <button onclick="addToCart('Channel Perfume', 100, 'p1.jpg')">Add to Cart</button>
     </div>
 
     <div class="product">
-      <img src="p2.jpg" alt="Product 1">
+      <img src="p2.jpg" alt="Sweet Orange">
       <h2>Sweet Orange</h2>
       <p>₱100</p>
-      <button onclick="addToCart('Product 1', 100)">Add to Cart</button>
+      <button onclick="addToCart('Sweet Orange', 100, 'p2.jpg')">Add to Cart</button>
     </div>
 
     <div class="product">
-      <img src="p3.jpg" alt="Product 1">
+      <img src="p3.jpg" alt="Pure Seduction">
       <h2>Pure Seduction</h2>
       <p>₱100</p>
-      <button onclick="addToCart('Product 1', 100)">Add to Cart</button>
+      <button onclick="addToCart('Pure Seduction', 100, 'p3.jpg')">Add to Cart</button>
     </div>
 
     <div class="product">
-      <img src="p4.jpg" alt="Product 1">
+      <img src="p4.jpg" alt="Strawberry Mint">
       <h2>Strawberry Mint</h2>
       <p>₱100</p>
-      <button onclick="addToCart('Product 1', 100)">Add to Cart</button>
+      <button onclick="addToCart('Strawberry Mint', 100, 'p4.jpg')">Add to Cart</button>
     </div>
 
     <div class="product">
       <img src="cc.jpg" alt="Couple Cap">
       <h2>Mr & Ms Cap</h2>
       <p>₱100</p>
-      <button onclick="addToCart('Couple Cap', 100)">Add to Cart</button>
+      <button onclick="addToCart('Couple Cap', 100, 'cc.jpg')">Add to Cart</button>
     </div>
 
     <div class="product">
       <img src="CofeeCap.jpg" alt="cc">
       <h2>Brown Cofee Cap</h2>
       <p>₱100</p>
-      <button onclick="addToCart('cc', 100)">Add to Cart</button>
+      <button onclick="addToCart('cc', 100, 'CofeeCap.jpg')">Add to Cart</button>
     </div>
   </div>
 
   <button class="checkout-btn" onclick="goToCheckout()">🛒 Cart</button>
 
   <script>
-    function addToCart(name, price) {
-      const item = { name, price };
+    function addToCart(name, price, image) {
+      const item = { name, price, image };
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
       cart.push(item);
       localStorage.setItem("cart", JSON.stringify(cart));
